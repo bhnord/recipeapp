@@ -1,0 +1,34 @@
+welcome page
+
+sign in page
+
+recipes list 
+	recipe selector for groceries
+	favorites
+
+individual recipe
+	picture - 
+	recipe name
+	prep time
+	serving size
+	ingredients -- with quantity
+	instruction
+	--creator of recipe
+
+recipe creation
+	everything from indiv. recipe 
+
+recipe find / sharing with diff account
+
+
+grocery page -- just ingredients 
+	ingredients
+	----- local grocery stores w/ ingredients
+
+personal pantry page
+	info of what's in your pantry to subtract from grocery
+
+
+
+
+

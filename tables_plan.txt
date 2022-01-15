@@ -1,0 +1,25 @@
+USERS
+pk - uid (username)
+email
+pw
+--settings?
+
+RECIPES
+pk - uid w/ counter?
+owner -fk
+name
+ingredients
+prep time
+instructions
+
+
+SHARED RECIPES
+pk - uid1/recipeid
+uid1(recipe_recipient) -fk
+uid2(recipe_owner) -fk
+recipeid -fk
+
+
+
+
+
