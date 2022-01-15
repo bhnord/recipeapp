@@ -5,4 +5,9 @@
     <string name="login_button">Login</string>
     <string name="login_page">Login</string>
     <string name="new_account_button">new account</string>
+    <string name="add_ingredient_button">add ingredient</string>
+
+
+
+
 </resources>

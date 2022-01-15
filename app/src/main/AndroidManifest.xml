@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipeapp">
         <activity
+            android:name=".CreateRecipe"
+            android:exported="false" />
+        <activity
             android:name=".DisplayRecipes"
             android:exported="false" />
         <activity

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -42,6 +43,8 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
     @Override
     public void onRecipeClick(int position) {
         System.out.println(recipeNames.get(position));
+        Intent intent = new Intent(this, CreateRecipe.class);
+        startActivity(intent);
 //        recipeNames.get(position);
 //        Intent intent = new Intent(this, NewActivity--);
 //        startActivity(intent);
