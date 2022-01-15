@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">recipeapp</string>
+    <string name="username_box">Username</string>
+    <string name="password_box">Password</string>
+    <string name="login_button">Login</string>
+    <string name="login_page">Login</string>
+    <string name="new_account_button">new account</string>
 </resources>
