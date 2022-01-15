@@ -4,4 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayRecipes"/>
+    tools:context=".DisplayRecipes">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipe_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
