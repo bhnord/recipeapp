@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -21,7 +20,7 @@ public class CreateRecipe extends AppCompatActivity {
     }
 
     public void addNewIngredient(View view){
-        View ingredientView = getLayoutInflater().inflate(R.layout.layout_recipeitem,null,false);
+        View ingredientView = getLayoutInflater().inflate(R.layout.layout_ingredientitem,null,false);
         layoutList.addView(ingredientView, numIngredients++);
         ImageView imageView = ingredientView.findViewById(R.id.close_image);
         imageView.setOnClickListener(new View.OnClickListener(){

@@ -33,6 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             super(itemView);
             text = itemView.findViewById(R.id.textView);
             this.onRecipeListener = onRecipeListener;
+            itemView.setClipToOutline(true);
             itemView.setOnClickListener(this);
         }
         @Override

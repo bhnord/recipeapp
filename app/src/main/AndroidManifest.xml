@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipeapp">
         <activity
-            android:name=".CreateRecipe"
+            android:name=".SignUp"
             android:exported="false" />
+        <activity
+            android:name=".CreateRecipe"
+            android:exported="false"
+            android:parentActivityName=".DisplayRecipes" />
         <activity
             android:name=".DisplayRecipes"
             android:exported="false" />

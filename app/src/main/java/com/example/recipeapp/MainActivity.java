@@ -22,4 +22,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(GET_USERNAME, username);
         startActivity(intent);
     }
+
+    public void goToAccountCreation(View view){
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
+    }
+
 }

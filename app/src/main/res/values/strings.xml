@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">recipeapp</string>
+    <string name="app_name">Recipe App</string>
     <string name="username_box">Username</string>
     <string name="password_box">Password</string>
     <string name="login_button">Login</string>
-    <string name="login_page">Login</string>
-    <string name="new_account_button">new account</string>
+    <string name="login_page">Easy Chef</string>
+    <string name="new_account_button">Create Account</string>
     <string name="add_ingredient_button">add ingredient</string>
-
-
+    <string name="retype_pass_box">Retype Password</string>
+    <string name="create_account_label">Create an Account</string>
 
 
 </resources>
