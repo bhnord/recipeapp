@@ -23,11 +23,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.recipeapp.data.Connection;
+import com.example.recipeapp.data.Recipe;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.OnRecipeListener{
-    private ArrayList<String> recipeNames;
+    private ArrayList<Recipe> recipes;
     private SwipeRefreshLayout refreshLayout;
     private CustomAdapter customAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -46,10 +60,11 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
 
 
         //set up recyclerview with data from sql server
-        recipeNames = new ArrayList<>();
+        recipes = new ArrayList<Recipe>();
         for(int i = 0; i < 25; i++){
-            recipeNames.add(""+i);
+            recipes.add(new Recipe(""+i, ""+i));
         }
+        loadRecipes();
 
         recyclerView = findViewById(R.id.recipe_list);
         initRecyclerView();
@@ -60,14 +75,15 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
             @Override
             public void onRefresh() {
                 //do something
-                Toast.makeText(getApplicationContext(), "Page refreshed", Toast.LENGTH_SHORT).show();
+                loadRecipes();
+                Toast.makeText(getApplicationContext(), "Recipes refreshed", Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
             }
         });
     }
 
     private void initRecyclerView(){
-        customAdapter = new CustomAdapter(this, recipeNames, recipeNames, this);
+        customAdapter = new CustomAdapter(this, recipes, this);
         recyclerView.setAdapter(customAdapter);
         linearLayoutManager = new LinearLayoutManager(this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
@@ -75,16 +91,48 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
 
     }
 
-    private void refreshRecipes(){
 
 
+    private void loadRecipes(){
+        String url = "http://130.215.220.234:8080/recipe?";
+        url = url + "uid="+CurrentLogin.getUsername();
+        System.out.println(url);
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                recipes.clear();
+                addFromJson(response);
+                customAdapter.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        Connection.getInstance(this).addToRequestQueue(objectRequest);
+    }
+
+    private void addFromJson(JSONObject jsonObject){
+        try {
+            JSONArray arr = jsonObject.getJSONArray("rows");
+            for(int i = 0; i < arr.length(); i++){
+                JSONObject obj = arr.getJSONObject(i);
+                String owner = (String)obj.get("recipe_owner");
+                String name = (String)obj.get("recipe_name");
+                recipes.add(new Recipe(name, owner));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onRecipeClick(int position) {
-        System.out.println(recipeNames.get(position));
+        System.out.println(recipes.get(position));
 
-//        recipeNames.get(position);
+//        recipes.get(position);
 //        Intent intent = new Intent(this, NewActivity--);
 //        startActivity(intent);
     }
@@ -131,7 +179,7 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             if(direction == ItemTouchHelper.LEFT){
-                recipeNames.remove(viewHolder.getAdapterPosition());
+                recipes.remove(viewHolder.getAdapterPosition());
                 customAdapter.notifyDataSetChanged();
             }
             else if(direction == ItemTouchHelper.RIGHT){

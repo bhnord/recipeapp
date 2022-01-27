@@ -4,34 +4,35 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recipeapp.data.Recipe;
+
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>{
-    private final ArrayList<String> recipeAuthor;
-    private ArrayList<String> recipeNames;
+
+    private ArrayList<Recipe> recipes;
     private Context context;
     private OnRecipeListener onRecipeListener;
 
-    public CustomAdapter(Context context, ArrayList<String> recipeNames, ArrayList<String> recipeAuthor, OnRecipeListener onRecipeListener){
-        this.recipeNames = recipeNames;
-        this.recipeAuthor = recipeAuthor;
+    public CustomAdapter(Context context, ArrayList<Recipe> recipes, OnRecipeListener onRecipeListener){
+        this.recipes = recipes;
         this.context = context;
         this.onRecipeListener = onRecipeListener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView text;
+        TextView recipeName;
+        TextView recipeOwner;
         OnRecipeListener onRecipeListener;
         public ViewHolder(@NonNull View itemView, OnRecipeListener onRecipeListener) {
             super(itemView);
-            text = itemView.findViewById(R.id.textView);
+            recipeName = itemView.findViewById(R.id.recipeName);
+            recipeOwner = itemView.findViewById(R.id.recipeOwner);
             this.onRecipeListener = onRecipeListener;
             itemView.setClipToOutline(true);
             itemView.setOnClickListener(this);
@@ -58,12 +59,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         // contents of the view with that element
         //viewHolder.getTextView().setText(localDataSet[position]);
 
-        viewHolder.text.setText(recipeNames.get(position));
+        viewHolder.recipeName.setText(recipes.get(position).recipeName);
+        viewHolder.recipeOwner.setText(recipes.get(position).recipeOwner);
     }
 
     @Override
     public int getItemCount() {
-        return recipeNames.size();
+        return recipes.size();
     }
 
     public interface OnRecipeListener{
