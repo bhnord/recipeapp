@@ -97,19 +97,12 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
         String url = "http://130.215.220.234:8080/recipe?";
         url = url + "uid="+CurrentLogin.getUsername();
         System.out.println(url);
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            recipes.clear();
+            addFromJson(response);
+            customAdapter.notifyDataSetChanged();
+        }, error -> {
 
-            @Override
-            public void onResponse(JSONObject response) {
-                recipes.clear();
-                addFromJson(response);
-                customAdapter.notifyDataSetChanged();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
         });
         Connection.getInstance(this).addToRequestQueue(objectRequest);
     }
@@ -179,8 +172,26 @@ public class DisplayRecipes extends AppCompatActivity implements CustomAdapter.O
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             if(direction == ItemTouchHelper.LEFT){
-                recipes.remove(viewHolder.getAdapterPosition());
-                customAdapter.notifyDataSetChanged();
+                Recipe r = recipes.get(viewHolder.getAdapterPosition());
+                final String recipe_name = r.recipeName;
+                final String recipe_owner = r.recipeOwner;
+                String url = "http://130.215.220.234:8080/recipe?";
+
+                url = url + "uid="+CurrentLogin.getUsername();
+                url = url + "&recipe_owner="+r.recipeOwner;
+                url = url + "&recipe_name="+r.recipeName;
+                System.out.println(url);
+                StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, response -> {
+                    if(response.equals("completed")) {
+                        recipes.remove(viewHolder.getAdapterPosition());
+                        customAdapter.notifyDataSetChanged();
+                    }
+                    System.out.println(response);
+                }, error -> {
+                    System.out.println(error);
+                });
+                Connection.getInstance(DisplayRecipes.this).addToRequestQueue(stringRequest);
+
             }
             else if(direction == ItemTouchHelper.RIGHT){
                 System.out.println("swiped left");

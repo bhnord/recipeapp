@@ -20,6 +20,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/editTextRecipeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Recipe Name"
+                android:inputType="textPersonName" />
+
             <Button
                 android:id="@+id/add_ingredient_button"
                 android:layout_width="wrap_content"
@@ -50,6 +59,7 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="sendRecipe"
                 android:text="Create Recipe" />
 
         </LinearLayout>
