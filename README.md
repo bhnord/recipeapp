@@ -1,5 +1,5 @@
 # recipeapp
-wpi hacks 2022
+This is an android application designed to allow the user to create and store recipes as well as allow the ability to share them with other people who have the app downloaded
 
 app structure:
 -------------------------------------------------------------------------------------------
